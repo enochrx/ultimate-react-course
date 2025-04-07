@@ -68,21 +68,28 @@ function Header() {
 }
 
 function Menu() {
+  const pizzas = pizzaData;
+  // const pizzas = [];
+  const numPizzas = pizzas.length;
   return (
     <main className="menu">
       <h2>Our Menu</h2>
-      <ul className="pizzas">
-        {pizzaData.map((pizza) => (
-          <Pizza
-            pizzaObj={pizza}
-            key={pizza.name}
-            // name={pizza.name}
-            // ingredients={pizza.ingredients}
-            // photoName={pizza.photoName}
-            // price={pizza.price}
-          />
-        ))}
-      </ul>
+      {numPizzas > 0 ? (
+        <ul className="pizzas">
+          {pizzas.map((pizza) => (
+            <Pizza
+              pizzas={pizza}
+              key={pizza.name}
+              // name={pizza.name}
+              // ingredients={pizza.ingredients}
+              // photoName={pizza.photoName}
+              // price={pizza.price}
+            />
+          ))}
+        </ul>
+      ) : (
+        <p>We're still working on our menu, Please check back later</p>
+      )}
       {/* <Pizza
         name="Pizza Spincaci"
         ingredients="Tomato, mozarella, spinach, and ricotta cheese"
@@ -103,11 +110,11 @@ function Menu() {
 function Pizza(props) {
   return (
     <li className="pizza">
-      <img alt={props.pizzaObj.name} src={props.pizzaObj.photoName} />
+      <img alt={props.pizzas.name} src={props.pizzas.photoName} />
       <div>
-        <h3>{props.pizzaObj.name}</h3>
-        <p>{props.pizzaObj.ingredients}</p>
-        <span>{props.pizzaObj.price}</span>
+        <h3>{props.pizzas.name}</h3>
+        <p>{props.pizzas.ingredients}</p>
+        <span>{props.pizzas.price}</span>
       </div>
     </li>
   );
@@ -116,7 +123,8 @@ function Pizza(props) {
 function Footer() {
   const hour = new Date().getHours();
   const openingHour = 9;
-  const closingHour = 21;
+  const closingHour = 22;
+  const isOpen = hour >= openingHour && hour <= closingHour;
 
   // if (hour >= openingHour && hour <= closingHour)
   //   alert("We're currently open for walk-ins");
@@ -125,10 +133,23 @@ function Footer() {
   return (
     <div>
       <footer className="footer">
-        {hour},{" "}
+        {isOpen ? (
+          <div className="order">
+            <p>
+              We're open until {closingHour}:00. Come visit us or order online
+            </p>
+            <button className="btn">Order</button>
+          </div>
+        ) : (
+          <p>
+            We're happy to welcome you between {openingHour}:00 and{" "}
+            {closingHour}:00
+          </p>
+        )}
+        {/* {hour},{" "}
         {hour >= openingHour && hour <= closingHour
           ? "We're currently open for walk-ins"
-          : "We're closed"}
+          : "We're closed"} */}
       </footer>
     </div>
   );
