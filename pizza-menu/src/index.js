@@ -1,5 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
+import "./index.css";
 
 const pizzaData = [
   {
@@ -48,21 +49,94 @@ const pizzaData = [
 
 function App() {
   return (
-    <div>
-      <h1>Hello React</h1>
-      <Pizza />
+    <div className="container">
+      <Header />
+      <Menu />
+      <Footer />
     </div>
   );
 }
 
-function Pizza() {
+function Header() {
+  const style = { color: "red", fontSize: "40px", textTransform: "uppercase" };
+  // const style = {};
+  return (
+    <header className="header">
+      <h1 style={style}>Fast React Pizza Co.</h1>
+    </header>
+  );
+}
+
+function Menu() {
+  return (
+    <main className="menu">
+      <h2>Our Menu</h2>
+      <ul className="pizzas">
+        {pizzaData.map((pizza) => (
+          <Pizza
+            pizzaObj={pizza}
+            key={pizza.name}
+            // name={pizza.name}
+            // ingredients={pizza.ingredients}
+            // photoName={pizza.photoName}
+            // price={pizza.price}
+          />
+        ))}
+      </ul>
+      {/* <Pizza
+        name="Pizza Spincaci"
+        ingredients="Tomato, mozarella, spinach, and ricotta cheese"
+        photoName="pizzas/spinaci.jpg"
+        price={10}
+      />
+      <Pizza
+        name="Pizza Ginghi"
+        ingredients="Tomato, mushrooms"
+        price={12}
+        photoName="pizzas/funghi.jpg"
+      />
+      <Pizza /> */}
+    </main>
+  );
+}
+
+function Pizza(props) {
+  return (
+    <li className="pizza">
+      <img alt={props.pizzaObj.name} src={props.pizzaObj.photoName} />
+      <div>
+        <h3>{props.pizzaObj.name}</h3>
+        <p>{props.pizzaObj.ingredients}</p>
+        <span>{props.pizzaObj.price}</span>
+      </div>
+    </li>
+  );
+}
+
+function Footer() {
+  const hour = new Date().getHours();
+  const openingHour = 9;
+  const closingHour = 21;
+
+  // if (hour >= openingHour && hour <= closingHour)
+  //   alert("We're currently open for walk-ins");
+  // else alert("We're closed");
+
   return (
     <div>
-      <img alt="spinaci" src="pizzas/spinaci.jpg" />
-      <h2>Pizza Funghi</h2>
-      <p>Tomato, mozarella, mushrooms, and onion</p>
+      <footer className="footer">
+        {hour},{" "}
+        {hour >= openingHour && hour <= closingHour
+          ? "We're currently open for walk-ins"
+          : "We're closed"}
+      </footer>
     </div>
   );
+  // return React.createElement(
+  //   "footer",
+  //   null,
+  //   "We're currently open for walk-ins"
+  // );
 }
 
 //Rendering root in React v18
