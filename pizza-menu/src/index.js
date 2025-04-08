@@ -102,13 +102,7 @@ function Menu() {
         photoName="pizzas/spinaci.jpg"
         price={10}
       />
-      <Pizza
-        name="Pizza Ginghi"
-        ingredients="Tomato, mushrooms"
-        price={12}
-        photoName="pizzas/funghi.jpg"
-      />
-      <Pizza /> */}
+       */}
     </main>
   );
 }
